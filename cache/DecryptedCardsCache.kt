@@ -7,7 +7,7 @@
  * SECURITY: Card numbers, CVVs, and PINs are wiped from memory
  * when the cache is cleared (on vault lock or session timeout).
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
