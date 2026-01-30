@@ -7,7 +7,7 @@
  * ALL fields containing card data are encrypted with XChaCha20-Poly1305
  * BEFORE being stored locally (Room) or synced to cloud (Firebase).
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
@@ -55,4 +55,5 @@ data class CardEntry(
     val timestamp: Long = System.currentTimeMillis(),
     val customFieldsJsonEncrypted: String = "",
     val historyJsonEncrypted: String? = null
+
 )
