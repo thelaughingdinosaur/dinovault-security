@@ -14,7 +14,7 @@
  * - v1 (Legacy): Stored password hash - server could theoretically attack it
  * - v2 (Current): Stores encrypted verification blob - true zero-knowledge
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
@@ -562,4 +562,5 @@ object VaultKeyManager {
             return false
         }
     }
+
 }
