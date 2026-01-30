@@ -9,7 +9,7 @@
  * - Secure wipe() function zeros sensitive data before garbage collection
  * - Cache automatically cleared on vault lock or session timeout
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
@@ -129,4 +129,5 @@ object DecryptedPasswordCache {
             Log.d("DecryptedPasswordCache", "Password cache cleared securely")
         }
     }
+
 }
