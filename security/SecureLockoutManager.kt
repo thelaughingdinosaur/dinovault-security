@@ -13,7 +13,7 @@
  * - Attack logging for forensic analysis
  * - Tamper detection (root, debugger, emulator)
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
