@@ -9,7 +9,7 @@
  * - wipe() function zeros all sensitive fields (card number, CVV, PIN)
  * - Designed with PCI DSS compliance principles in mind
  * 
- * Source: https://github.com/YOUR_USERNAME/dinovault-security
+ * Source: https://github.com/thelaughingdinosaur/dinovault-security
  * App Version: 5.3
  */
 
@@ -96,4 +96,5 @@ data class DecryptedCardEntry(
             }
         }
     }
+
 }
