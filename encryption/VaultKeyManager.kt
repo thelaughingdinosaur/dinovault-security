@@ -216,18 +216,44 @@ object VaultKeyManager {
     /**
      * Syncs vault credentials from cloud to local storage.
      */
+  //Updated to handle both v1 and v2 credentials
     suspend fun syncCredentialsFromCloud(context: Context): Boolean {
         try {
             val doc = getCredentialsDocRef()?.get()?.await()
             val credentials = doc?.toObject(VaultCredentials::class.java)
+
             if (credentials != null) {
+                // 1. Check which version the cloud vault is using
+                val cloudVersion = credentials.vaultVersion
+
+                // 2. Save the correct fields based on version
                 context.vaultDataStore.edit { editor ->
+                    // Always save the salt
                     editor[SALT_KEY] = credentials.saltBase64
-                    editor[HASHED_PASSWORD_KEY] = credentials.hashBase64
+
+                    if (cloudVersion == 2) {
+                        // v2: Save verification blob, remove legacy hash
+                        if (credentials.verificationBlob.isNotEmpty()) {
+                            editor[VERIFICATION_BLOB_KEY] = credentials.verificationBlob
+                        }
+                        editor.remove(HASHED_PASSWORD_KEY)
+                    } else {
+                        // v1: Save hash, remove v2 blob (fallback)
+                        if (credentials.hashBase64.isNotEmpty()) {
+                            editor[HASHED_PASSWORD_KEY] = credentials.hashBase64
+                        }
+                        editor.remove(VERIFICATION_BLOB_KEY)
+                    }
                 }
-                logDebug("VaultKeyManager", "Successfully synced credentials from cloud.")
+
+                // 3. CRITICAL: Update the local Vault Version so the app knows how to verify
+                // We use the full class path or import VaultVersion to avoid circular ref issues if any
+                com.techmania.pocketmind.vault.VaultVersion.setVersion(context, cloudVersion)
+
+                logDebug("VaultKeyManager", "✅ Successfully synced credentials (v$cloudVersion) from cloud.")
                 return true
             }
+
             logWarning("VaultKeyManager", "No credentials found in Firestore to sync.")
             return false
         } catch (e: Exception) {
@@ -564,3 +590,4 @@ object VaultKeyManager {
     }
 
 }
+
